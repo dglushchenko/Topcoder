@@ -2,23 +2,30 @@
 // Idea for large - binary search
 public class LongLongTripDiv2 {
 
-	public String isAbleSmall(long D, int T, int B) {
+	public String isAble(long D, int T, int B) {
 		String y = "Possible";
 		String n = "Impossible";
-		while (T > 0) {
-			if (D % B == 0 && D / B == T) {
+		
+		int bCount = T;
+		int leftBCount = 0;
+		int rightBCount = T;
+		int step = 0;
+		while (step++ < 50) {
+			long value = (long) B * bCount + (T - bCount);
+			if (D == value) {
 				return y;
 			}
-			if (D == T) {
-				return y;
+			if (value > D) {
+				rightBCount = bCount;
+				bCount = (bCount + leftBCount) / 2;
 			}
-			D -= B;
-			T--;
+			if (value < D) {
+				leftBCount = bCount;
+				bCount = (bCount + rightBCount) / 2;
+			}
 		}
+		
+		
 		return n;
-	}
-
-	public String isAble(long D, int T, int B) {
-		return null;
 	}
 }
